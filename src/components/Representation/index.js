@@ -1,16 +1,26 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import data from "../../assets/data.js";
+import Pagination from "../Pagination/index.js";
 
 import { ReactComponent as Folder } from "../../assets/folder.svg";
-
 import "./index.css";
+
+let pageSize = 10;
 
 const Representation = () => {
     const [selectedVan, setSelectedVan] = useState("");
     const [vanData, setVanData] = useState([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * pageSize;
+        const lastPageIndex = firstPageIndex + pageSize;
+        return vanData.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, vanData]);
+
     const handleDropdown = (e) => {
-        if(e.target.value === "") {
+        if (e.target.value === "") {
             setSelectedVan("")
             setVanData([])
         }
@@ -21,8 +31,6 @@ const Representation = () => {
         if (selectedVanData !== undefined && selectedVanData.visits !== undefined) {
             setVanData(selectedVanData.visits);
         }
-
-        console.log("val", val, typeof val, e.target.value)
     }
 
     return (
@@ -44,11 +52,10 @@ const Representation = () => {
                 }
             </select>
             {
-                (vanData.length === 0) ?
+                (currentTableData.length === 0) ?
                     <div className="data__empty">
                         <Folder />
                         No Data Found!
-                        <br />
                         <br />
                         Please select a Van from the dropdown.
                     </div>
@@ -56,14 +63,16 @@ const Representation = () => {
                     <div className="data__container">
                         <table className="data__table">
                             <tr className="data__table--header">
+                                <th className="data__table--heading"></th>
                                 <th className="data__table--heading">Shipment Label</th>
                                 <th className="data__table--heading">Address</th>
                                 <th className="data__table--heading">Visit Time</th>
                             </tr>
                             {
-                                vanData.map((visit) => {
+                                currentTableData.map((visit, index) => {
                                     return (
                                         <tr className="data__table--row">
+                                            <td className="data__table--cell">{index + 1}</td>
                                             <td className="data__table--cell">{visit.shipmentLabel}</td>
                                             <td className="data__table--cell">{visit.address}</td>
                                             <td className="data__table--cell">{visit.VisitTime}</td>
@@ -72,6 +81,13 @@ const Representation = () => {
                                 })
                             }
                         </table>
+                        <Pagination
+                            className="pagination__bar"
+                            currentPage={currentPage}
+                            totalCount={vanData.length}
+                            pageSize={pageSize}
+                            onPageChange={page => setCurrentPage(page)}
+                        />
                     </div>
             }
         </div>

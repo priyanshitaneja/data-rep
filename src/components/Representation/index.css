@@ -1,5 +1,6 @@
 .data__dropdown {
-    padding: 5px;
+    padding: 5px 10px;
+    border-radius: 8px;
 }
 
 .data__empty {
