@@ -26,6 +26,7 @@
     border: 1px solid #b2b2b3;
     border-radius: 20px;
     border-collapse: collapse;
+    overflow: auto;
 }
 
 .data__table--header {

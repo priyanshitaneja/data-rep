@@ -5,7 +5,7 @@ import Pagination from "../Pagination/index.js";
 import { ReactComponent as Folder } from "../../assets/folder.svg";
 import "./index.css";
 
-let pageSize = 10;
+let pageSize = 15;
 
 const Representation = () => {
     const [selectedVan, setSelectedVan] = useState("");
@@ -75,7 +75,7 @@ const Representation = () => {
                                             <td className="data__table--cell">{index + 1}</td>
                                             <td className="data__table--cell">{visit.shipmentLabel}</td>
                                             <td className="data__table--cell">{visit.address}</td>
-                                            <td className="data__table--cell">{visit.VisitTime}</td>
+                                            <td className="data__table--cell">{Date(visit.VisitTime)}</td>
                                         </tr>
                                     )
                                 })
