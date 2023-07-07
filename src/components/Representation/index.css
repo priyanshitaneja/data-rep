@@ -1,0 +1,37 @@
+.data__dropdown {
+    padding: 5px;
+}
+
+.data__empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+    color: #b2b2b3;
+    row-gap: 20px;
+}
+
+.data__empty svg {
+    font-size: 80px;
+    fill: #c6c6c6;
+}
+
+.data__container {
+    padding: 30px;
+}
+
+.data__table {
+    width: 100%;
+    border: 1px solid #b2b2b3;
+    border-radius: 20px;
+    border-collapse: collapse;
+}
+
+.data__table--header {
+    background-color: #b2b2b3;
+}
+
+.data__table--heading, .data__table--cell {
+    padding: 10px;
+    border: 1px solid #b2b2b3;
+}
